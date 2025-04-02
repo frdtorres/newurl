@@ -1,0 +1,129 @@
+---
+title: "Introducción a los Promedios Estadísticos"
+author: "Fred Torres Cruz"
+date: "2025-04-01"
+lang: es
+format:
+  html:
+    theme: cosmo
+    toc: true
+    number-sections: true
+    code-fold: true
+    self-contained: true
+  pdf: default
+---
+
+# Introducción a los Promedios
+
+Los promedios son medidas de tendencia central que nos permiten resumir información sobre un conjunto de datos. Estas medidas son fundamentales en estadística descriptiva y nos ayudan a comprender la distribución de los datos.
+
+## ¿Por qué son importantes?
+
+Las medidas de tendencia central nos permiten:
+
+- Resumir grandes conjuntos de datos
+- Comparar diferentes conjuntos de datos
+- Tomar decisiones basadas en valores representativos
+- Identificar patrones y tendencias
+
+# Tipos de Promedios
+
+Existen diferentes tipos de promedios, cada uno con sus propias características y aplicaciones.
+
+## Media Aritmética
+
+La media aritmética es el promedio más común. Se calcula sumando todos los valores y dividiendo por el número total de observaciones.
+
+$$\bar{x} = \frac{\sum_{i=1}^{n} x_i}{n}$$
+
+```{r}
+#| label: media-aritmetica
+#| echo: true
+
+datos <- c(4, 8, 15, 16, 23, 42)
+media <- mean(datos)
+cat("Media aritmética:", media)
+```
+
+## Mediana
+
+La mediana es el valor que divide el conjunto de datos en dos partes iguales. Es menos sensible a valores extremos que la media aritmética.
+
+```{r}
+#| label: mediana
+#| echo: true
+
+mediana <- median(datos)
+cat("Mediana:", mediana)
+```
+
+## Moda
+
+La moda es el valor que aparece con mayor frecuencia en un conjunto de datos. Un conjunto puede tener más de una moda.
+
+```{r}
+#| label: moda
+#| echo: true
+
+datos_con_moda <- c(2, 3, 3, 4, 5, 5, 5, 6, 7)
+# Función para calcular la moda
+calcular_moda <- function(x) {
+  tabla <- table(x)
+  as.numeric(names(tabla)[tabla == max(tabla)])
+}
+cat("Moda:", calcular_moda(datos_con_moda))
+```
+
+# Comparación de Medidas
+
+Cada medida de tendencia central tiene sus ventajas y desventajas:
+
+| Medida | Ventajas | Desventajas |
+|--------|----------|-------------|
+| Media  | Utiliza todos los valores | Sensible a valores extremos |
+| Mediana | Resistente a valores extremos | No considera todos los valores |
+| Moda | Útil para datos categóricos | Puede no ser única |
+
+# Ejemplo Práctico
+
+Veamos un ejemplo práctico de cómo estas medidas pueden variar:
+
+```{r}
+#| label: ejemplo
+#| echo: true
+#| fig-cap: "Comparación de medidas de tendencia central"
+
+# Conjunto de datos normal
+datos_normal <- c(10, 12, 13, 14, 15, 16, 18)
+
+# Conjunto con valor extremo
+datos_extremo <- c(10, 12, 13, 14, 15, 16, 100)
+
+# Comparación
+comparacion <- data.frame(
+  Conjunto = c("Normal", "Con valor extremo"),
+  Media = c(mean(datos_normal), mean(datos_extremo)),
+  Mediana = c(median(datos_normal), median(datos_extremo))
+)
+
+# Mostrar tabla
+library(knitr)
+kable(comparacion)
+
+# Visualización
+par(mfrow=c(1,2))
+boxplot(datos_normal, main="Datos normales")
+boxplot(datos_extremo, main="Datos con valor extremo")
+```
+
+# Conclusiones
+
+- La elección del promedio adecuado depende del tipo de datos y del objetivo del análisis.
+- Es recomendable calcular varias medidas de tendencia central para obtener una imagen más completa de los datos.
+- Los promedios deben complementarse con medidas de dispersión para una interpretación adecuada.
+
+# Referencias
+
+1. Pérez, J. (2023). *Estadística Descriptiva: Un enfoque práctico*. Editorial Académica.
+2. López, M. (2024). *Análisis de Datos con R*. Universidad Nacional.
+3. Martínez, R. (2022). *Introducción a la Estadística*. Editorial Científica.
